@@ -5,25 +5,25 @@ import { images } from "@/constants";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
-import { createUser } from "../../lib/appwrite";
-const SignUp = () => {
+import { signIn } from "@/lib/appwrite";
+
+const SignIn = () => {
   const [form, setForm] = React.useState({
     email: "",
     password: "",
-    username: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submit = async () => {
-    if (!form.email || !form.username || !form.password) {
+    if (!form.email || !form.password) {
       Alert.alert("Error", "Please fill all fields");
     }
 
     setIsSubmitting(true);
 
     try {
-      const result = await createUser(form.email, form.password, form.username);
+      await signIn(form.email, form.password);
       router.replace("/home");
     } catch (error) {
       console.log(error);
@@ -41,18 +41,8 @@ const SignUp = () => {
           className="w-[115px] h-[35px]"
         />
         <Text className="text-2xl text-white text-semibold mt-10 font-semibold">
-          Sign Up
+          Log in to Aora
         </Text>
-
-        <FormField
-          title="Username"
-          value={form.username}
-          handleChangeText={(e) => {
-            setForm({ ...form, username: e });
-          }}
-          otherStyles="mt-7"
-          keyboardType="password"
-        />
         <FormField
           title="Email"
           value={form.email}
@@ -73,8 +63,14 @@ const SignUp = () => {
           keyboardType="password"
         />
 
+        <View className="items-end mt-7">
+          <Link href={""} className="text-gray-100">
+            Forgot password
+          </Link>
+        </View>
+
         <CustomButton
-          title="Sign Up"
+          title="Login"
           containerStyles={"mt-7"}
           handlePress={submit}
           isLoading={isSubmitting}
@@ -82,10 +78,10 @@ const SignUp = () => {
 
         <View className="justify-center pt-5 flex-row gap-2 items-center">
           <Text className="text-lg text-gray-100 font-pregular ">
-            Already have account ?
+            Don't have account ?
           </Text>
-          <Link className="text-lg text-secondary" href={"/signin"}>
-            Login
+          <Link className="text-lg text-secondary" href={"/signup"}>
+            Sign Up
           </Link>
         </View>
       </View>
@@ -93,4 +89,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

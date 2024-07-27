@@ -31,8 +31,6 @@ export default function TabLayout() {
 
   return (
     <>
-    {/* Safe area */}
-    <SafeAreaView edges={['right', 'bottom', 'left', 'top']} />
     {/* Navigation bar */}
       <Tabs
         screenOptions={{

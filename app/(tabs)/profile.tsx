@@ -1,11 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import Wrapper from '@/components/Wrapper'
 
 const Profile = () => {
   return (
-    <View>
+    <Wrapper>
       <Text>Profile</Text>
-    </View>
+    </Wrapper>
   )
 }
 
